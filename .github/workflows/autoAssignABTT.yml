@@ -6,6 +6,9 @@ on:
       - opened
       - labeled
 
+permissions:
+  contents: read
+
 jobs:
   assign_one_project:
     runs-on: ubuntu-latest
@@ -13,6 +16,11 @@ jobs:
       issues: write
     name: Assign to ABTT Project
     steps:
+    - name: Harden the runner (Audit all outbound calls)
+      uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
+      with:
+        egress-policy: audit
+
     - name: "Assign issues with 'Area: ABTT' label to project board"
       uses: actions/add-to-project@4756e6330fe1e0a736690d3cfd9f11c9399c2ed4 # v0.4.1
       with:

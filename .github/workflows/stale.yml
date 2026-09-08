@@ -4,6 +4,9 @@ on:
   schedule:
   - cron: "0 0/3 * * *"
 
+permissions:
+  contents: read
+
 jobs:
 
   stale:
@@ -12,6 +15,11 @@ jobs:
       issues: write
       pull-requests: write
     steps:
+    - name: Harden the runner (Audit all outbound calls)
+      uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
+      with:
+        egress-policy: audit
+
     - uses: actions/stale@1e223db275d687790206a7acac4d1a11bd6fe629 # v10
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
@@ -35,6 +43,11 @@ jobs:
     permissions:
       issues: write
     steps:
+    - name: Harden the runner (Audit all outbound calls)
+      uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
+      with:
+        egress-policy: audit
+
     - uses: actions/stale@1e223db275d687790206a7acac4d1a11bd6fe629 # v10
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
@@ -54,6 +67,11 @@ jobs:
     permissions:
       issues: write
     steps:
+    - name: Harden the runner (Audit all outbound calls)
+      uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
+      with:
+        egress-policy: audit
+
     - uses: actions/stale@1e223db275d687790206a7acac4d1a11bd6fe629 # v10
       env:
         ACTIONS_STEP_DEBUG: true
